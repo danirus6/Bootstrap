@@ -38,7 +38,7 @@ document.getElementById('userForm').addEventListener('submit', function (e) {
         password: password1
     };
 
-    localStorage.setItem("profile", JSON.stringify(userData));
+    localStorage.setItem(correo, JSON.stringify(userData));
 
     createAlert("Usuario creado correctamente. Redirigiendo a la vista Usuarios...", "alert-success");
 

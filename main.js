@@ -1,3 +1,4 @@
+//
 const user = document.getElementById().value;
 const psw1 = document.getElementById().value;
 const psw2 = document.getElementById().value;
@@ -8,6 +9,7 @@ const email = document.getElementById().value;
 let comprobePSW = false;
 let comprobeUSER = false;
 let comprobeEMAIL = false;
+
 function comprobeAllData() {
     preventDefault();
 

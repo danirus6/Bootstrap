@@ -1,51 +1,71 @@
-//
-const user = document.getElementById().value;
-const psw1 = document.getElementById().value;
-const psw2 = document.getElementById().value;
-const email = document.getElementById().value;
+document.getElementById('userForm').addEventListener('submit', function (e) {
+    e.preventDefault();
 
+    // Obtener los valores de los campos
+    const nombre = document.getElementById('nombre').value;
+    const correo = document.getElementById('correo').value;
+    const password1 = document.getElementById('password1').value;
+    const password2 = document.getElementById('password2').value;
 
+    // Validación para rellenar todos los campos
+    if (!nombre || !correo || !password1 || !password2) {
+        createAlert("Por favor, complete todos los campos", "alert-danger");
+        return;
+    }
 
-let comprobePSW = false;
-let comprobeUSER = false;
-let comprobeEMAIL = false;
+    // Validación para el correo
+    const emailPattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+    if (!emailPattern.test(correo)) {
+        createAlert("El correo electrónico no es válido", "alert-danger");
+        return;
+    }
 
-function comprobeAllData() {
-    preventDefault();
+    // Validación para contraseñas
+    if (password1 !== password2) {
+        createAlert("Las contraseñas no coinciden", "alert-danger");
+        return;
+    }
+    // Validación para contraseñas (Longitud)
+    if (password1.length < 6) {
+        createAlert("La contraseña debe tener al menos 6 caracteres", "alert-danger");
+        return;
+    }
 
-    comprobePSW(comprobePSW);
-    comprobeUSER(comprobeUSER);
-    comprobeEMAIL(comprobeEMAIL);
+    // Objeto userData
+    const userData = {
+        nombre: nombre,
+        correo: correo,
+        password: password1
+    };
 
+    localStorage.setItem("profile", JSON.stringify(userData));
 
+    createAlert("Usuario creado correctamente. Redirigiendo a la vista Usuarios...", "alert-success");
 
-    if (comprobePSW === true) console.log("Funciona") //funcion submit && 
-    else errorPrint(comprobePSW);
-
-    if (comprobeUSER === true) console.log("Funciona") // funcio
-    else errorPrint(comprobeUSER);
-
-
-    if (comprobePSW === true && comprobeUSER === true && comprobeEMAIL === true) return //Funcion Submit;
-    //return errorPrint(userError, emailError, comprobePSW); //pasarErrores por parametros
-}
-
-function comprobePsw(comprobePSW) {
-    if (psw1 === psw2 && psw1, psw2 !== "") return comprobePSW = true;
-    else return comprobePSW = false;
-}
-function comprobeUser(comprobeUSER) {
-
-}
-function comprobeEmail(comprobeEMAIL) {
-
-}
-
-
-function errorPrint() {
-
-    setTimeout(() => {
-        document.getElementById("error").innerHTML = "";
+    //Redirección a la web de perfiles
+    setTimeout(function () {
+        window.location.href = "profiles.html";
     }, 3000);
+});
 
+
+//Funcion alertas 
+function createAlert(message, alertClass) {
+    const alertDiv = document.createElement('div');
+    alertDiv.classList.add('alert', alertClass);
+    alertDiv.innerText = message;
+
+    const container = document.querySelector('.container');
+    container.appendChild(alertDiv);
+
+    setTimeout(function () {
+        alertDiv.remove();
+    }, 3000);
 }
+
+// Botón "Limpiar localStorage"
+let clearLocalStorageButton = document.getElementById("clearLocalStorage");
+clearLocalStorageButton.addEventListener("click", function () {
+    // Limpiar el localStorage
+    localStorage.clear();
+});

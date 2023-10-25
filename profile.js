@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
-  
+
     const userCardsContainer = document.getElementById("userCards");
 
+    //Creamos cards en base a la longitud del LocalStorage
     for (let i = 0; i < localStorage.length; i++) {
         let profile = localStorage.key(i);
         let userData = JSON.parse(localStorage.getItem(profile));
@@ -15,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <p class="card-text"><strong>Correo:</strong> ${userData.correo}</p>
             </div>
         `;
-
+        //Creamos la tarjeta debajo del ultimo, siempre
         userCardsContainer.appendChild(userCard);
     }
 });

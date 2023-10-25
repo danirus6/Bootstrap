@@ -14,14 +14,14 @@ Este proyecto es una implementación sencilla y con finalidad educativa de un fo
 - Cada tarjeta muestra el nombre del usuario y su dirección de correo electrónico.
 
 ### Limpiar localStorage
-- En la página "Crear Usuarios", hay un botón "Limpiar localStorage" que permite borrar todos los usuarios almacenados en `localStorage`.
+- En la página "Crear Usuario", hay un botón "Limpiar localStorage" que permite borrar todos los usuarios almacenados en `localStorage`.
 
 ## Uso
 
 1. Abre el archivo `index.html` en tu navegador para crear usuarios.
 2. Completa el formulario con información válida y haz clic en "Crear Usuario".
 3. Luego, abre el archivo `profiles.html` para ver la lista de usuarios creados.
-4. Si deseas borrar todos los usuarios, puedes hacer clic en el botón "Limpiar localStorage" en la página "Crear Usuarios".
+4. Si deseas borrar todos los usuarios, puedes hacer clic en el botón "Limpiar localStorage" en la página "Crear Usuario".
 
 ## Tecnologías Utilizadas
 

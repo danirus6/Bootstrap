@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Crear Usuario</title>
+    <!-- Agregar enlaces a Bootstrap CSS y JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Crear Usuario</h2>
+        <form id="userForm">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" class="form-control" id="nombre" name="nombre">
+            </div>
+            <div class="form-group">
+                <label for="correo">Correo:</label>
+                <input type="email" class="form-control" id="correo" name="correo">
+            </div>
+            <div class="form-group">
+                <label for="password1">Contraseña 1:</label>
+                <input type="password" class="form-control" id="password1" name="password1">
+            </div>
+            <div class="form-group">
+                <label for="password2">Contraseña 2:</label>
+                <input type="password" class="form-control" id="password2" name="password2">
+            </div>
+            <button type="submit" class="btn btn-primary">Crear Usuario</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('userForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Obtener los valores de los campos
+            var nombre = document.getElementById('nombre').value;
+            var correo = document.getElementById('correo').value;
+            var password1 = document.getElementById('password1').value;
+            var password2 = document.getElementById('password2').value;
+
+            // Validación para rellenar todos los campos
+            if (!validateRequiredFields(nombre, correo, password1, password2)) {
+                return;
+            }
+
+            // Validación para el correo
+            if (!validateEmail(correo)) {
+                return;
+            }
+
+            // Validación para contraseñas
+            if (!validatePasswords(password1, password2)) {
+                return;
+            }
+
+            // Guardar la información del usuario en localStorage
+            var userData = {
+                nombre: nombre,
+                correo: correo,
+                password: password1
+            };
+
+            localStorage.setItem(correo, JSON.stringify(userData));
+
+            // Mostrar mensaje de éxito y redirigir a la vista Usuarios
+            showAlert("Usuario creado correctamente. Redirigiendo a la vista Usuarios...", "alert-success");
+
+            setTimeout(function () {
+                window.location.href = "user.html";
+            }, 3000);
+        });
+
+        function validateRequiredFields(nombre, correo, password1, password2) {
+            if (!nombre || !correo || !password1 || !password2) {
+                showAlert("Por favor, complete todos los campos", "alert-danger");
+                return false;
+            }
+            return true;
+        }
+
+        function validateEmail(email) {
+            var emailPattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+            if (!emailPattern.test(email)) {
+                showAlert("El correo electrónico no es válido", "alert-danger");
+                return false;
+            }
+            return true;
+        }
+
+        function validatePasswords(password1, password2) {
+            if (password1 !== password2) {
+                showAlert("Las contraseñas no coinciden", "alert-danger");
+                return false;
+            }
+
+            if (password1.length < 6) {
+                showAlert("La contraseña debe tener al menos 6 caracteres", "alert-danger");
+                return false;
+            }
+
+            return true;
+        }
+
+        function showAlert(message, alertClass) {
+            var alertDiv = document.createElement('div');
+            alertDiv.classList.add('alert', alertClass);
+            alertDiv.innerText = message;
+
+            var container = document.querySelector('.container');
+            container.appendChild(alertDiv);
+
+            setTimeout(function () {
+                alertDiv.remove();
+            }, 3000);
+        }
+    </script>
+
+    <!-- Agregar enlace a Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

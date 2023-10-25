@@ -9,25 +9,25 @@ document.getElementById('userForm').addEventListener('submit', function(e) {
     
     // Validación para rellenar todos los campos
     if (!nombre || !correo || !password1 || !password2) {
-        showAlert("Por favor, complete todos los campos", "alert-danger");
+        createAlert("Por favor, complete todos los campos");
         return;
     }
     
     // Validación para el correo
     const emailPattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
     if (!emailPattern.test(correo)) {
-        showAlert("El correo electrónico no es válido", "alert-danger");
+        createAlert("El correo electrónico no es válido");
         return;
     }
     
     // Validación para contraseñas
     if (password1 !== password2) {
-        showAlert("Las contraseñas no coinciden", "alert-danger");
+        createAlert("Las contraseñas no coinciden");
         return;
     }
     
     if (password1.length < 6) {
-        showAlert("La contraseña debe tener al menos 6 caracteres", "alert-danger");
+        createAlert("La contraseña debe tener al menos 6 caracteres");
         return;
     }
     
@@ -39,16 +39,16 @@ document.getElementById('userForm').addEventListener('submit', function(e) {
     
     localStorage.setItem("profile", JSON.stringify(userData));
     
-    showAlert("Usuario creado correctamente. Redirigiendo a la vista Usuarios...", "alert-success");
+    createAlert("Usuario creado correctamente. Redirigiendo a la vista Usuarios...", "alert-success");
     
     setTimeout(function() {
         window.location.href = "profiles.html";
     }, 3000);
 });
 
-function showAlert(message, alertClass) {
+function createAlert(message) {
     const alertDiv = document.createElement('div');
-    alertDiv.classList.add('alert', alertClass);
+    alertDiv.classList.add('alert');
     alertDiv.innerText = message;
     
     const container = document.querySelector('.container');
